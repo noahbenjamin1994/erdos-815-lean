@@ -1,10 +1,11 @@
 # sha256 of every tracked file, excluding verification/ itself
-# date: 2026-09-18T05:10:38Z
+# date: 2026-09-18T06:03:02Z
 # toolchain: leanprover/lean4:v4.34.0
 # mathlib:   5ed2965256430c3649e86755f9576b54eca72435
 # verify with: shasum -a 256 -c <(grep -v '^#' verification/CHECKSUMS.txt)
 9ddeb7cb6af42a16a31bc4df8fbf6510ec67d4c29476d31a35718693ea4d96dc  .gitignore
-c0ce34d2d688d84d66d5c9ed81331fc7a84bfed5499a46f19cdd8ea2c005110f  Erdos815.lean
+7fb418242f463895e6ff67e0535d4ffd5ab58de7c3a4b68b65bc917ce2f5bfe4  AUTHORS.md
+645e58a970182274d8d7e081b244ed8cfa35210ffab076f2d813011b2c46079b  Erdos815.lean
 ee6870dc9fa13d8b21bf303c08b4457254a7c1bf133ad7e099918162818aed5a  Erdos815/Defs.lean
 4628193d6dee6358ba72b8a710474f5b5396e06f44dd50d41e2313b4638b559c  Erdos815/GTreeCritical.lean
 72f2f6ed5e3d285500f3849275e85e9dff40ece5998434dd95d624df836f4b11  Erdos815/GTreeCycles.lean
@@ -18,7 +19,7 @@ d21e8471577974315c62c25e103df4ab537a7030a98938d5eef90c25d7dc78dd  Erdos815/TreeS
 a14fc5dc10650e2c96cf628d187567739b2653b03b5e7927d1bb9fe780d768f7  Erdos815/TreeWalks.lean
 981749cfb393ff95d268c38119a02aaeeaf00f0934d9c42caf234a9b7a4e9434  Erdos815/Verify.lean
 795a685dccf5144a845d2c31a2d4aa355d3713f5529c7a22c632af84d8cb4af0  LICENSE
-29dc50bd2b587f9dcafd7c70f9ad9baa4b7de7a70c40c49514edbd80159c3012  README.md
+e933d179558e0fa48cf8917f575b15b4e42c891e0a2cca7cee8624d425b5d038  README.md
 e2321a11b9b2b82cab06a7dd74370fa4c0af0ed7418578bcad37fae71f615aa0  docs/CLAIM.md
 4416c4b448c2a245d3bf1455f008eec7d148b9ea9932d39c8b364c8d7dd056df  docs/CLAIM.zh.md
 70377971f04e373f0ffbd68f3228a2aed604aeaebd2f4034922fce879fecd6fa  docs/FAITHFULNESS.zh.md

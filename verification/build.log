@@ -1,10 +1,10 @@
 # host: Darwin 25.5.0 arm64, 14 cpus
-# date: 2026-09-18T05:07:29Z
+# date: 2026-09-18T06:02:25Z
 # lean:  Lean (version 4.34.0, arm64-apple-darwin24.6.0, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b, Release)
 # lake:  Lake version 5.0.0-src+293d5d0 (Lean version 4.34.0)
 # clean rebuild: rm -rf .lake/build && lake build 
 
-⚠ [3137/3149] Built Erdos815.Defs (11s)
+⚠ [3137/3149] Built Erdos815.Defs (12s)
 warning: Erdos815/Defs.lean:21:0: The module doc-string for a file should be the first command after the imports.
 Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
 
@@ -96,7 +96,7 @@ Second copyright line should be "Released under Apache 2.0 license as described 
 
 
 Note: This linter can be disabled with `set_option linter.style.header false`
-⚠ [3139/3149] Built Erdos815.Sequence (2.9s)
+⚠ [3139/3149] Built Erdos815.Sequence (3.0s)
 warning: Erdos815/Sequence.lean:20:0: The module doc-string for a file should be the first command after the imports.
 Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
 
@@ -153,7 +153,7 @@ open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-⚠ [3140/3149] Built Erdos815.GTreeCritical (3.0s)
+⚠ [3140/3149] Built Erdos815.GTreeCritical (3.1s)
 warning: Erdos815/GTreeCritical.lean:56:0: The module doc-string for a file should be the first command after the imports.
 Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
 
@@ -305,7 +305,7 @@ open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-⚠ [3141/3149] Built Erdos815.GTreeCycles (2.0s)
+⚠ [3141/3149] Built Erdos815.GTreeCycles (3.1s)
 warning: Erdos815/GTreeCycles.lean:50:0: The module doc-string for a file should be the first command after the imports.
 Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
 
@@ -480,7 +480,7 @@ Hint: The binding can be removed (if unused) or named `_` (if used implicitly). 
   [apply] _p
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [3143/3149] Built Erdos815.TreeStruct (2.2s)
+⚠ [3143/3149] Built Erdos815.TreeStruct (2.3s)
 warning: Erdos815/TreeStruct.lean:18:0: The module doc-string for a file should be the first command after the imports.
 Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
 
@@ -595,7 +595,7 @@ Hint: Omit it from the simp argument list.
   [apply] simp only [decide_eq_decide, true_and]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-⚠ [3144/3149] Built Erdos815.TreeWalks (2.3s)
+⚠ [3144/3149] Built Erdos815.TreeWalks (2.2s)
 warning: Erdos815/TreeWalks.lean:40:0: The module doc-string for a file should be the first command after the imports.
 Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
 
@@ -657,7 +657,7 @@ Second copyright line should be "Released under Apache 2.0 license as described 
 
 
 Note: This linter can be disabled with `set_option linter.style.header false`
-⚠ [3145/3149] Built Erdos815.TreeConstruct (2.5s)
+⚠ [3145/3149] Built Erdos815.TreeConstruct (2.6s)
 warning: Erdos815/TreeConstruct.lean:40:0: The module doc-string for a file should be the first command after the imports.
 Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
 
@@ -722,7 +722,7 @@ Second copyright line should be "Released under Apache 2.0 license as described 
 
 
 Note: This linter can be disabled with `set_option linter.style.header false`
-⚠ [3146/3149] Built Erdos815.TreePaths (2.4s)
+⚠ [3146/3149] Built Erdos815.TreePaths (2.3s)
 warning: Erdos815/TreePaths.lean:57:0: The module doc-string for a file should be the first command after the imports.
 Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
 
@@ -904,9 +904,9 @@ warning: Erdos815/Main.lean:196:2: The `show` tactic should only be used to indi
 However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
 
 Note: This linter can be disabled with `set_option linter.style.show false`
-✔ [3148/3149] Built Erdos815 (1.0s)
+✔ [3148/3149] Built Erdos815 (1.9s)
 Build completed successfully (3149 jobs).
-real 32.57
-user 22.19
-sys 19.46
+real 33.73
+user 22.32
+sys 19.65
 # exit=0
