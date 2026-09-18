@@ -1,0 +1,14 @@
+# Lake build artefacts and package cache
+/.lake/
+/build/
+*.olean
+*.ilean
+*.trace
+
+# Verification scratch output (regenerate with the commands in README.md)
+build.log
+axioms.log
+
+# OS / editor
+.DS_Store
+*.swp
