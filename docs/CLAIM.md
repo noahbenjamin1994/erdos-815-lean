@@ -1,8 +1,7 @@
 # Draft `[Recipient]` issue — JSP-000672 (Erdős 815)
 
-Draft text for an issue on `TheJustinSunPrize/awards`. **Not yet submitted.**
-The Chinese original this was written from is [`CLAIM.zh.md`](CLAIM.zh.md); read the
-pre-submission checklist at the bottom before posting.
+**Posted 2026-09-18 as [TheJustinSunPrize/awards#1020](https://github.com/TheJustinSunPrize/awards/issues/1020).**
+The Chinese original this was written from is [`CLAIM.zh.md`](CLAIM.zh.md).
 
 ---
 
@@ -19,7 +18,7 @@ subgraphs of minimum degree 3 and short cycles*, Combinatorica 37 (2017) 495–5
 arXiv:1408.5289 — there are degree 3-critical graphs of arbitrarily large order containing no
 cycle of length 23, which answers Erdős 815 in the negative.
 
-Repository: `<REPO URL>`. Lean `v4.34.0`, Mathlib commit
+Repository: https://github.com/noahbenjamin1994/erdos-815-lean. Lean `v4.34.0`, Mathlib commit
 `5ed2965256430c3649e86755f9576b54eca72435`, both pinned in the repository.
 
 ### Statement
@@ -98,9 +97,8 @@ inspection, and checking the definition directly is strictly stronger.
 
 ## Pre-submission checklist
 
-- [ ] Push the repository publicly and paste the real URL above (priority is by public timestamp).
-- [ ] Re-check the competition state on the day of submission: JSP issues for 000672, GitHub repos
-      matching `jsp-000672-*`, open `formal-conjectures` PRs.
+- [x] Pushed public 2026-09-18T04:05Z.
+- [x] Competition state checked 2026-09-18T03:56Z: nothing found on any of the three channels.
 - [ ] Consider opening a statement PR against `formal-conjectures` first, so a third party reviews
       the statement before the claim rests on it.
-- [ ] Post this issue on its own. Do not batch it with other problems.
+- [x] Posted on its own.
