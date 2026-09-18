@@ -14,6 +14,15 @@ Prize ledger entry: **JSP-000672** (`TheJustinSunPrize/awards`).
 
 ---
 
+## Documents
+
+| Document | What it is |
+|---|---|
+| [`docs/FAITHFULNESS.zh.md`](docs/FAITHFULNESS.zh.md) | **Read this first.** 17 rows comparing the paper's English wording with the Lean code, line by line, with a verdict on every difference |
+| [`docs/README.zh.md`](docs/README.zh.md) | Original Chinese repository notes: construction, file map, lemma tree, build instructions |
+| [`docs/CLAIM.md`](docs/CLAIM.md) | The award claim, posted as [awards#1020](https://github.com/TheJustinSunPrize/awards/issues/1020) |
+| [`docs/CLAIM.zh.md`](docs/CLAIM.zh.md) | The Chinese original the claim was written from |
+
 ## The question and the answer
 
 > Let `k ≥ 3` and `n` be large. If a graph `G` has `n` vertices and `2n − 2` edges and every
