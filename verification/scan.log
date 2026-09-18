@@ -1,0 +1,10 @@
+# scan for placeholders and trust-escape hatches
+# pattern: sorry | admit | native_decide | ^ *axiom | ofReduceBool | implemented_by
+# scope: every .lean file tracked in this repository
+
+NO MATCHES
+
+# Lean's own count of sorry warnings in the clean rebuild:
+declaration uses 'sorry' : 0
+sorryAx in axioms.log    : 0
+axiom lines outside the allowed three: 0

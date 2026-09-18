@@ -5,9 +5,10 @@
 *.ilean
 *.trace
 
-# Verification scratch output (regenerate with the commands in README.md)
-build.log
-axioms.log
+# Scratch verification output. The committed record lives in verification/
+/build.log
+/axioms.log
+/mine.log
 
 # OS / editor
 .DS_Store

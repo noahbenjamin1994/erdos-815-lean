@@ -1,0 +1,912 @@
+# host: Darwin 25.5.0 arm64, 14 cpus
+# date: 2026-09-18T05:07:29Z
+# lean:  Lean (version 4.34.0, arm64-apple-darwin24.6.0, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b, Release)
+# lake:  Lake version 5.0.0-src+293d5d0 (Lean version 4.34.0)
+# clean rebuild: rm -rf .lake/build && lake build 
+
+⚠ [3137/3149] Built Erdos815.Defs (11s)
+warning: Erdos815/Defs.lean:21:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Defs.lean:2:0: * `# 定义层`:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Defs.lean:2:0: * `# 定义层`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Defs.lean:4:0: * `Narins–Pokrovskiy–Szabó, *Graphs without proper subgraphs of minimum degree 3 and
+short cycles*, Combinatorica 37 (2017) 495–519, arXiv:1408.5289, §2 的形式化。
+
+本文件只放定义,**不含任何证明义务**。逐条定义对应的论文原文见
+`.work/erdos-815/notes/paper-section2.md`,设计理由见 `notes/blueprint.md`。
+
+图论基础一律复用 Mathlib(`SimpleGraph.Walk` / `IsPath` / `IsCycle` / `IsTree` /
+`SimpleGraph.induce`),不另造一套。`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Defs.lean:4:0: * `Narins–Po`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Defs.lean:12:2: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+⚠ [3138/3149] Built Erdos815.Transport (2.8s)
+warning: Erdos815/Transport.lean:36:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Transport.lean:2:0: * `# 沿图同构搬运 `IsDegr`:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Transport.lean:2:40: * `OfLength`(step 5 辅助文件)`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Transport.lean:4:0: * `蓝图 §0 把最终陈述定死为
+
+```lean
+∃ G : ℕ → (Σ n : ℕ, SimpleGraph (Fin n)), …
+```
+
+即顶点类型必须是 `Fin N`。而我们构造出来的图 `G(T(x₁…xₙ))` 的顶点类型是
+`TVtx x n ⊕ Bool` —— 一个由归纳类型 + 子类型 + `Sum` 拼出来的东西。二者当然同构,但「同构」这件事在 Lean 里不是自动的:必须把两条性质逐一搬过去。
+
+**为什么最终陈述要用 `Fin n` 而不是直接 `Σ V : Type, SimpleGraph V`**:
+`IsDegree3Critical` 里的 `edgeFinset.card` 与 `Fintype.card V` 要求 `Fintype`,而 `Fin n` 免费给出它,且 `(G i).1 < (G j).1` 直接就是「顶点数严格递增」的写法,不必再套一层 `Fintype.card`。代价就是本文件 —— 一次性付清。
+
+本文件证两条:
+
+| 引理 | 内容 |
+|---|---|
+| `IsDegree3Critical.of_iso` | 同构保持 degree 3-critical |
+| `hasCycleOfLength_of_iso` | 同构保持「含长 `ℓ` 的圈」(两个方向) |
+
+**关键坑(与 step 2 记的是同一个)**:`IsDegree3Critical` 的定义带
+`open scoped Classical`,里面的 `Fintype ↥s` / `DecidableRel` 实例是**定义里固化的闭项**,与证明中 `inferInstance` 现场合成的只**定义相等**、不语法相同。所以本文件里凡是碰
+`degree` 的地方都用 `Subsingleton.elim` / `convert` 把实例强行对齐,不指望 `simp` 自己配上。`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Transport.lean:4:0: * `蓝图 §0 把最终`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Transport.lean:29:4355: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+⚠ [3139/3149] Built Erdos815.Sequence (2.9s)
+warning: Erdos815/Sequence.lean:20:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Sequence.lean:2:0: * `# Theorem 2.5 ——`:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Sequence.lean:2:23: * `avoiding 的 odd-even 序列`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Sequence.lean:4:0: * `Narins–Pokrovskiy–Szabó, *Graphs without proper subgraphs of minimum degree 3 and
+short cycles*, Combinatorica 37 (2017) 495–519, arXiv:1408.5289, §2.1。
+
+论文的证明是「看 Figure 4」:把序列画成图,目测没有点落在别的点的 fault line 上。
+那套 fault line / Proposition 2.4 的几何语言是**为人眼检查服务的等价重述**,不是逻辑上
+必需的一步。我们绕过 Prop 2.4,直接按 Definition 2.3 的字面定义做有限枚举 —— 这不损失
+任何东西(Prop 2.4 本就是 Def 2.3 的等价改写),而且给出的是机器可验的证明而不是一张图。
+
+核心是一条**有限化归约**:周期性 + `aᵢ ≥ 1` 把 `∀ i ≠ j ∈ ℤ` 的条件压成
+`∀ r < 24, ∀ 1 ≤ d ≤ 18` 的 24×18 次检查,由 `decide` 在内核里判定。
+
+⚠ 全文只用内核 `decide`。**编译期求值版的那个 tactic(名字见验收脚本)一律禁用** ——
+它会引入额外的求值公理,违反本任务「只允许 propext / Classical.choice / Quot.sound」的口径。`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Sequence.lean:4:0: * `Narins–Po`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Sequence.lean:17:2: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Sequence.lean:134:36: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Erdos815/Sequence.lean:176:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [3140/3149] Built Erdos815.GTreeCritical (3.0s)
+warning: Erdos815/GTreeCritical.lean:56:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCritical.lean:2:0: * `# P-crit —— `T` `:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCritical.lean:2:30: * `)` 是 degree 3-critical`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCritical.lean:4:0: * `论文 §2:*Notice that if `T` is a 1-3 tree then `G(T)` is degree 3-critical.*
+论文把这一步当作显然,**没有给出证明**;形式化时必须自己补全。下面先写出完整的
+proof sketch(我们补的论证),再逐条形式化。
+
+---
+
+## Proof sketch(我们补的;论文只有一句 "Notice that")
+
+记 `T` 有 `t` 个顶点、`ℓ` 个叶子、`d` 个 3 度点。`G(T)` 有 `N = t + 2` 个顶点。
+
+### (A) 1-3 树的顶点计数恒等式:`2ℓ = t + 2`
+
+1. `T` 是树 ⟹ `|E(T)| = t − 1`(Mathlib `IsTree.card_edgeFinset`)。
+2. 每个顶点度为 1 或 3,两类互斥 ⟹ `ℓ + d = t`。
+3. 握手引理 `∑ deg = 2|E(T)|` ⟹ `ℓ · 1 + d · 3 = 2(t − 1)`。
+4. 消去 `d`:`2d = t − 2`,`ℓ = t − d` ⟹ `2ℓ = t + 2`。
+
+### (B) 边数 `= 2N − 2`
+
+直接对 `G(T)` 再用一次握手引理,而不去拆 `edgeFinset`:
+
+* 每个 `.inl a`(`T` 的原顶点)在 `G(T)` 里的度**恰为 3**:
+  - `a` 是叶子 ⟹ 邻居是「`T` 里唯一的那个邻居」+ `x` + `y` = 3 个;
+  - `a` 是 3 度点 ⟹ `a` 不是叶子,故 `x, y` 都不与它相连,邻居就是 `T` 里那 3 个。
+  这条「所有原顶点在 `G(T)` 里都是 3 度」是整个构造的要点。
+* 每个 `.inr p`(即 `x` 与 `y`)的度是 `ℓ + 1`(全部叶子 + 对方)。
+
+于是 `∑_{w ∈ V(G(T))} deg(w) = 3t + 2(ℓ + 1)`,代入 (A) 的 `2ℓ = t + 2` 得 `= 4t + 4`,故 `|E(G(T))| = 2t + 2 = 2(t + 2) − 2 = 2N − 2`。 ∎
+
+### (C) 每个真导出子图最小度 `≤ 2`
+
+反证。设 `S ⊊ V(G(T))`、`S ≠ ∅`,且 `G(T)[S]` 的每个顶点度 `≥ 3`。
+
+**关键观察**:`G(T)` 里 `.inl a` 的度恰为 3(见 (B)),而导出子图的度不超过全图的度。
+所以若 `.inl a ∈ S` 且它在 `G(T)[S]` 里的度 `≥ 3`,则它在 `G(T)` 里的**全部**邻居都在 `S` 里。
+
+* **情形 1:`S` 含某个 `.inl a₀`。**
+  由上述观察,`A := {a | .inl a ∈ S}` 对 `T` 的邻接封闭。`T` 连通 ⟹ 沿任意 walk 传播 ⟹
+  `A = V(T)`,即所有原顶点都在 `S` 里。再由 (A) 知叶子集非空,取一个叶子 `a₁`;
+  `a₁` 在 `G(T)` 里与 `x, y` 都相邻,故 `x, y ∈ S`。于是 `S = V(G(T))`,与 `S` 真子集矛盾。
+
+* **情形 2:`S` 不含任何 `.inl a`。**
+  则 `S ⊆ {x, y}`,任取 `v ∈ S`,它在 `G(T)[S]` 里的度 `≤ |S| ≤ 2` —— 这一支不需要反证, 直接给出了要找的顶点。 ∎
+
+---
+
+原文摘录见 `.work/erdos-815/notes/paper-section2.md`,设计理由见 `notes/blueprint.md`。`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCritical.lean:4:0: * `论文 §2:*No`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCritical.lean:26:0: * `  `:
+Double spaces are not allowed.
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCritical.lean:52:75: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCritical.lean:91:2: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/GTreeCritical.lean:174:2: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/GTreeCritical.lean:196:45: This simp argument is unused:
+  reduceCtorEq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [SimpleGraph.mem_neighborFinset, GT_adj_inl_inl, Finset.mem_insert, Finset.mem_singleton,
+    Sum.inl.injEq, or_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/GTreeCritical.lean:196:59: This simp argument is unused:
+  or_false
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [SimpleGraph.mem_neighborFinset, GT_adj_inl_inl, Finset.mem_insert, Finset.mem_singleton,
+    Sum.inl.injEq, reduceCtorEq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/GTreeCritical.lean:166:0: `GT_degree_inl` does not use the following hypotheses in its type:
+  • [DecidableEq V] (#4)
+  • [DecidableRel G.Adj] (#5)
+
+Consider removing these hypotheses and using `classical` in the proof instead. For terms, consider using `open scoped Classical in` at the term level (not the command level).
+
+Note: This linter can be disabled with `set_option linter.unusedDecidableInType false`
+warning: Erdos815/GTreeCritical.lean:207:2: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/GTreeCritical.lean:202:0: `GT_degree_inr` does not use the following hypothesis in its type:
+  • [DecidableEq V] (#4)
+
+Consider removing this hypothesis and using `classical` in the proof instead. For terms, consider using `open scoped Classical in` at the term level (not the command level).
+
+Note: This linter can be disabled with `set_option linter.unusedDecidableInType false`
+warning: Erdos815/GTreeCritical.lean:236:10: This simp argument is unused:
+  Finset.card_univ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [two_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/GTreeCritical.lean:221:0: `GT_card_edgeFinset` does not use the following hypotheses in its type:
+  • [DecidableEq V] (#4)
+  • [DecidableRel G.Adj] (#5)
+
+Consider removing these hypotheses and using `classical` in the proof instead. For terms, consider using `open scoped Classical in` at the term level (not the command level).
+
+Note: This linter can be disabled with `set_option linter.unusedDecidableInType false`
+warning: Erdos815/GTreeCritical.lean:287:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: Erdos815/GTreeCritical.lean:322:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [3141/3149] Built Erdos815.GTreeCycles (2.0s)
+warning: Erdos815/GTreeCycles.lean:50:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCycles.lean:2:0: * `# Lemma 2.1(i) —`:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCycles.lean:2:29: * ` ↔ `T` 的 leaf-leaf 路径长`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCycles.lean:4:0: * `论文 §2 Lemma 2.1(i) 原文:
+
+> (i) The graph `G(T)` contains a cycle of length `2k + 1` ⟺ `T` contains a leaf-leaf
+>     path of length `2k − 2`.
+>
+> **Proof.** For (i), let `C` be a `(2k + 1)`-cycle in `G(T)`. Notice that since `T` is an
+> even tree, `G(T) − xy` is bipartite. So `C` must contain the edge `xy` and hence
+> `C − x − y` must be a leaf-leaf path of length `2k − 2` as required.
+
+T1.2 只需要 ⟹ 方向,所以本文件只做 ⟹。把 `2k + 1` / `2k − 2` 改写成 `ℓ + 3` / `ℓ`
+(`ℓ` 偶且 `ℓ > 0`),**纯粹是为了避开 `ℕ` 的截断减法** —— 二者在 `k ≥ 2` 时同义,而 `ℓ = 2k − 2` 的写法在 Lean 里会把 `k = 0, 1` 的退化情形混进来。
+`ℓ > 0` 是必需的:`ℓ = 0` 对应 3-圈 `x–y–leaf–x`,它给出的「长 0 的 leaf-leaf 路径」
+两端是同一个点,不满足 `IsLeafLeafPath` 里的 `u ≠ v`。本链路只用 `ℓ = 20`,不受影响。
+
+## 证明骨架(与论文逐句对应)
+
+**(A) `G(T) − xy` 二部** —— 论文 "since `T` is an even tree, `G(T) − xy` is bipartite"。
+`T` 是树 ⟹ 有 2-染色 `cT`;`T` 是偶树 ⟹ **所有叶子同色**(两叶子间的路径长为偶,由 `Coloring.even_length_iff_congr` 得同色)。把 `x, y` 都染成叶子色的反色,即得 `G(T) − xy` 的 2-染色:`G(T) − xy` 的边只有「树内边」和「叶子–{x,y}」两类,两类都被这个染色分开。见 `gtColoring`。
+
+**(B) 奇圈必用 `xy`** —— 论文 "So `C` must contain the edge `xy`"。
+若 `C` 不含 `xy`,`C` 整条落在 `G(T) − xy` 里,而二部图里的闭迹长度必偶。见 `edge_xy_mem_edges_of_odd`。
+
+**(C) `C − x − y` 是 leaf-leaf 路径** —— 论文 "hence `C − x − y` must be a leaf-leaf path"。
+把 `C` 旋到 `x` 起点后剥三条边:`x → y`(即 `xy`)、`y → a`、`b → x`。
+剩下的 `r : b ⇝ a` 长度为 `ℓ`,支撑集不含 `x, y`,于是可以**降回 `T`**(`exists_walk_of_support_inl`);
+`a, b` 是叶子,因为 `y`(resp. `x`)在 `G(T)` 里除对方外只与叶子相邻。见 `leafPath_of_cycle_cons`。
+
+**(C′) `xy` 未必是首边** —— 论文一句话带过,Lean 里要补:旋到 `x` 之后 `xy` 可能是**末**边。
+此时改用 `C.reverse`(同为圈、同长),其首边就是 `xy`。
+「`xy` 只能是首边或末边」的理由:圈的支撑集去头后无重复,`x` 只出现在两端,所以除首末两条外没有边含 `x`。见 `cycle_cons_xy`。
+
+## 与 `Defs.lean` 的关系
+
+本文件**没有修改 `Defs.lean`**,因此蓝图无需改动。特别地,论文说的「`T` 是偶树」
+在 `Defs.lean` 里已取「所有 leaf-leaf 路径长为偶」这一等价形式,不必先造出二部划分;
+(A) 里需要的划分是本文件**现造**的(`gtColoring`),这正是当初把 `IsEvenTree`
+写成路径形式所预留的接口。`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCycles.lean:4:0: * `论文 §2 Lem`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCycles.lean:7:1: * `  `:
+Double spaces are not allowed.
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCycles.lean:10:72: * ` and `:
+Please, do not use 'and'; use ',' instead.
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCycles.lean:45:11748: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/GTreeCycles.lean:123:15: `dite_cond_eq_true` has been deprecated: Use `dite_eq_left_of_eq_true` instead
+⚠ [3142/3149] Built Erdos815.TreeBasic (2.4s)
+warning: Erdos815/TreeBasic.lean:27:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeBasic.lean:2:0: * `# `T(x₁ … xₙ)` 的`:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeBasic.lean:2:11: * `ₙ)` 的基础结构(step 4 辅助文件)`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeBasic.lean:4:0: * ``Defs.lean` 只给出了 `T(x₁…xₙ)` 的顶点类型 `TVtx` 与邻接 `tAdjRaw`。本文件补齐
+后面两个文件(`TreeStruct.lean` 证 1-3 树,`TreePaths.lean` 证 Lemma 2.2)共用的
+**坐标系统**:
+
+| 函数 | 含义 | 关键性质 |
+|---|---|---|
+| `tIdx v` | 顶点所属的「块」下标 `i`(路径点 `vᵢ` 与挂在它上面的子树结点同属块 `i`) | 只在主路径的边上变化,且变化量恰为 1 |
+| `tHeight v` | 顶点在所属子树里的深度 `+1`(路径点记 `0`) | 只在子树内部的边与 `vᵢuᵢ` 上变化,变化量恰为 1 |
+| `tRank v` | `tIdx v + tHeight v`,即到 `v₁` 的距离 | **每条边上恰好变化 1** —— 整个图是分级的 |
+
+`tRank` 逐边变化 1 立刻给出一个 `Bool` 2-染色 `tColor`,而 odd-even 条件恰好使
+**所有叶子同色**,于是 Lemma 2.2(i)(偶树)不需要任何路径分类就能得到。
+这是本步最大的一处简化:论文用「路径与主路径的交」三分类来推出偶性,我们用染色直接给出,逻辑上更短且完全忠实(结论一致)。
+
+另外本文件给出三族**割函数**(cut functions),`TreeStruct.lean` 用它们证无圈:
+对每条边给一个在「删掉该边后的图」上沿边恒定、而在该边两端取值不同的 `Bool` 函数,即证明了每条边都是桥,由 `isAcyclic_iff_forall_adj_isBridge` 得无圈。`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeBasic.lean:4:0: * ``Defs.lea`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeBasic.lean:22:0: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeBasic.lean:197:4: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreeBasic.lean:221:4: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreeBasic.lean:258:25: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreeBasic.lean:272:21: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreeBasic.lean:279:29: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreeBasic.lean:282:29: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreeBasic.lean:292:61: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreeBasic.lean:307:27: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreeBasic.lean:313:61: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreeBasic.lean:448:17: This simp argument is unused:
+  hv
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [tRank, h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/TreeBasic.lean:480:55: Variable name `p` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _p
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [3143/3149] Built Erdos815.TreeStruct (2.2s)
+warning: Erdos815/TreeStruct.lean:18:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeStruct.lean:2:0: * `# `T(x₁ … xₙ)` 是`:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeStruct.lean:2:13: * `` 是 1-3 树(step 4 辅助文件)`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeStruct.lean:4:0: * `论文一句话带过:*"Notice that for any sequence `x₁, . . . , xₙ` of positive integers,the tree `T(x₁ . . . xₙ)` is a 1-3 tree."* —— 但「它确实是一棵**树**」在 Lean 里必须证。
+本文件补三块:
+
+1. **连通**:任意顶点沿子树往上走到 `vᵢ`,再沿主路径走到 `v₁`。
+2. **无圈**:用 `isAcyclic_iff_forall_adj_isBridge` —— 对每条边给一个割函数
+   (`TreeBasic.lean` 的 `cutSeg` / `cutRoot` / `cutIn`),证明删掉这条边后两端不可达。
+   比「取圈上 rank 最大的点看它的两个圈邻居」那条路好写得多:后者要拆 Mathlib 的
+   `IsCycle` 支撑结构,前者只是三个 `Bool` 函数的逐边验算。
+3. **度只有 1 或 3**:直接引用 `TreeBasic.lean` 的 `pathV_isDeg3` / `treeV_isDeg3` /
+   `treeV_isLeaf`。`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeStruct.lean:4:0: * `论文一句话带过:*`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeStruct.lean:9:61: * `  `:
+Double spaces are not allowed.
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeStruct.lean:15:1: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeStruct.lean:87:26: Variable name `hp` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Erdos815/TreeStruct.lean:132:25: This simp argument is unused:
+  ha
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [cutSeg, hb, tIdx_pathV, decide_eq_decide]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/TreeStruct.lean:132:29: This simp argument is unused:
+  hb
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [cutSeg, ha, tIdx_pathV, decide_eq_decide]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/TreeStruct.lean:132:45: This simp argument is unused:
+  decide_eq_decide
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [cutSeg, ha, hb, tIdx_pathV]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/TreeStruct.lean:168:24: This simp argument is unused:
+  ha
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [cutRoot, hb]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/TreeStruct.lean:168:28: This simp argument is unused:
+  hb
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [cutRoot, ha]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/TreeStruct.lean:205:22: This simp argument is unused:
+  hp
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [cutIn, hq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/TreeStruct.lean:205:26: This simp argument is unused:
+  hq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [cutIn, hp]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/TreeStruct.lean:213:47: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [decide_eq_decide, true_and]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Erdos815/TreeStruct.lean:227:47: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [decide_eq_decide, true_and]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [3144/3149] Built Erdos815.TreeWalks (2.3s)
+warning: Erdos815/TreeWalks.lean:40:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeWalks.lean:2:0: * `# `T(x₁ … xₙ)` 里`:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeWalks.lean:2:15: * `里的典范 walk(step 4 辅助文件)`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeWalks.lean:4:0: * ``TreePaths.lean` 的两档分类需要两种显式 walk:
+
+* **上行路径**:从子树结点 `treeV i s l` 沿父边一路走到 `vᵢ`,长度 `|l| + 1`;
+* **主路径段**:从 `vᵢ` 沿主路径走到 `vⱼ`,长度 `|i − j|`。
+
+同块档只需要把两条上行路径接起来,**不必证拼出来的东西是路径** —— 无圈图里真正的
+路径只会更短(`path_length_le_walk`)。
+
+异块档需要等号,所以拼出来的 `上行 ++ 主路径段 ++ 下行` 必须证 `IsPath`。
+支撑集无重复的理由是三段互不相交:
+
+| 段 | `tIdx` | `tHeight` |
+|---|---|---|
+| A = 上行段(含末端 `vᵢ`) | 恒为 `i` | —— |
+| B = 主路径段去掉首点 `vᵢ` | 恒 `≠ i` | 恒为 `0`(全是主路径点) |
+| C = 下行段去掉首点 `vⱼ` | 恒为 `j ≠ i` | 恒 `≥ 1` |
+
+A 与 B、A 与 C 靠 `tIdx` 分开,B 与 C 靠 `tHeight` 分开;三段各自的 `Nodup` 来自
+各自的 `IsPath`。
+
+注意 B 段「`tIdx ≠ i`」不需要主路径的下标单调性:主路径段的支撑集全是主路径点,若某个非首点也有 `tIdx = i`,那它就等于首点 `vᵢ`,与该段自身的 `Nodup` 矛盾。
+这一步省掉了一整套下标单调性的样板。同理 C 段的「`tHeight ≥ 1`」来自上行段性质里的
+「要么是端点 `vⱼ`,要么深度 ≥ 1」,而端点已被 `.tail` 去掉。
+
+**一律用存在量词形式**(`∃ p, …`)而不是先 `def` 出 walk 再逐条证性质:
+walk 的构造带着依赖类型的合法性证明项,`def` 出来之后每条性质引理都要重新面对
+同一堆 `TValid` 参数;存在形式把构造与性质一次性打包,后面只 `obtain` 一次。
+
+⚠ 本文件全程**不对 `TVtx` 的元素做 `obtain ⟨uv, huv⟩`**:`TVtx` 是 `def` 包的
+`Subtype`,拆开之后 Lean 会把它显示成 `{v // TValid x n v}`,与 `TTree x n` 的顶点类型
+不再语法相同,`Walk` 上的引理立刻全部失配。一律走「`rcases hv : u.val` + `TVtx_ext`」。`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeWalks.lean:4:0: * ``TreePath`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeWalks.lean:36:1: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+⚠ [3145/3149] Built Erdos815.TreeConstruct (2.5s)
+warning: Erdos815/TreeConstruct.lean:40:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeConstruct.lean:2:0: * `# `T(x₁ … xₙ)` 里`:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeConstruct.lean:2:43: * ` 5 补齐 Lemma 2.2 的构造方向)`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeConstruct.lean:4:0: * ``TreeWalks.lean` 造的是「给定两片叶子,连接它们的典范 walk / path」;本文件反过来:
+**给定一个长度,造出取到该长度的一对叶子与它们之间的路径**。这是论文 Lemma 2.2
+(ii)(iii)(iv-if) 的全部技术内容,对应原文最后一句
+*"one must only note that a perfect tree of depth `d` contains a leaf-leaf path of every
+even length"*。
+
+## 三种长度来源(与论文三分类一一对应)
+
+| 论文的情形 | 本文件的构造 | 长度 |
+|---|---|---|
+| 交为空:两片叶子在同一棵子树内分叉 | `hasLeafLeafPath_branch` | `2m`,`1 ≤ m ≤ xᵢ − 1` |
+| 交为单点 `vᵢ`(仅 `i = 1` 或 `i = n`) | `hasLeafLeafPath_twoSided` | `2xᵢ` |
+| 交为线段 `vᵢ…vⱼ` | `hasLeafLeafPath_of_idx_ne`(复用 `exists_leafPath_of_idx_ne`) | `xᵢ + xⱼ + \|i−j\|` |
+
+## 构造用的两条归纳(都照抄 `exists_upPath_aux` 的骨架)
+
+* `exists_partialUp`:从 `treeV i s (p ++ c)` 沿父边走到 `treeV i s c`,长 `|p|`,是路径;
+  支撑集不变量写成 **`∃ q, |q| ≤ |p| ∧ z.val = treeV i s (q ++ c)`**。
+* `exists_upPath_sideAux`:`exists_upPath` 的加强版,支撑集里额外记住**侧** `s`
+  (`w = vᵢ` 或 `w.val = treeV i s _`)。B4 的不交性只能靠侧来分。
+
+### 为什么不变量写成 `q ++ c` 而不是「`l'` 是 `p ++ c` 的后缀」
+
+工单原本的建议是记后缀关系,再靠「`replicate m false` 的后缀全是 `false`」
+对「`A ++ [true]` 的非空后缀含 `true`」来区分两半。后者需要一条
+「非空后缀含末元素」的引理,Mathlib 不直给,要自己从 `IsSuffix` 拆。
+
+改用 `q ++ c` 之后,两半的公共尾巴分别取 `false :: c` 与 `true :: c`,于是「两半支撑集相交」⟹ `q₁ ++ false :: c = q₂ ++ true :: c`,两边长度相同 ⟹ `|q₁| = |q₂|` ⟹ `List.append_inj` ⟹ `false = true`。
+**一条列表引理搞定,完全不碰后缀结构。**`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeConstruct.lean:4:0: * ``TreeWalk`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeConstruct.lean:21:0: * `  `:
+Double spaces are not allowed.
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreeConstruct.lean:35:0: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+⚠ [3146/3149] Built Erdos815.TreePaths (2.4s)
+warning: Erdos815/TreePaths.lean:57:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreePaths.lean:2:0: * `# Lemma 2.2 —— o`:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreePaths.lean:2:35: * `ₙ)` 的 leaf-leaf 路径长度刻画`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreePaths.lean:4:0: * `Narins–Pokrovskiy–Szabó, arXiv:1408.5289, §2。原文四条与证明见
+`.work/erdos-815/notes/paper-section2.md`。
+
+**论文的证明思路**(逐字):leaf-leaf 路径按它与主路径 `v₁…vₙ` 的交分类,交总是一条(可能为空的)路径:
+
+| 交 | 路径形态 | 长度 |
+|---|---|---|
+| 空 | 落在某棵深度 `xᵢ−1` 的完美二叉树内部 | `2m`,`0 ≤ m < max xᵢ` |
+| 单点 | 该点必是 `v₁` 或 `vₙ`,路径穿过深度 `x₁`(或 `xₙ`)的完美树的根 | `2x₁` 或 `2xₙ` |
+| 线段 `vᵢ…vⱼ` | 从第 `i` 块的叶子上到 `vᵢ`,走主路径到 `vⱼ`,再下到第 `j` 块的叶子 | `xᵢ + (j−i) + xⱼ` |
+
+## 我们的形式化路线(与论文等价,但更短)
+
+**(i) 偶性不走分类。** 我们在 `TreeBasic.lean` 里给出显式的分级函数
+`tRank = tIdx + tHeight`,它在**每条边上恰好变化 1**,于是
+`tColor := tRank % 2` 是一个真 2-染色;而叶子的 rank 恒为 `i + xᵢ`,odd-even(`xᵢ ≡ i+1 mod 2`)使它恒为奇数 ⟹ **所有叶子同色** ⟹
+任意 leaf-leaf 路径长为偶(Mathlib `Coloring.even_length_iff_congr`)。
+这比论文「三分类后逐类验算奇偶」短得多,结论完全相同。
+
+**(iv) 的 "only if" 走分类,但只需两档。** 我们证的分类定理是
+`leafLeafPath_length`:
+
+* 两端叶子同属一块(`tIdx u = tIdx v`):长度 `≤ 2xᵢ` —— **只要上界**。
+  上界不需要构造出最短路,只要造**任意一条** walk:无圈图里
+  `path.length ≤ walk.length`(`path_length_le_walk`)。
+  这一档合并了论文的「交为空」与「交为单点」两类。
+* 两端叶子不同块:长度**恰为** `xᵢ + xⱼ + |i−j|`。这里需要等号, 因此必须构造出那条**典范路径**并证它 `IsPath`,再用树的路径唯一性
+  (`IsAcyclic.subsingleton_path`)把给定路径与它等同。
+
+(iv) 的 only-if 随即得到:`2m > 2·max xᵢ ≥ 2xᵢ` 排除第一档。
+
+## 本链路不需要的部分
+
+(ii)、(iii) 与 (iv) 的 "if" 方向要求**构造出**各长度的路径,是论文 §3 的需求;
+本任务(T1.3(ii) → T1.2)只用 (i) 与 (iv) 的 only-if。两者仍按原文陈述在此,证明留待需要时补。
+
+## 一处与原文的形式差异(已核对,记录在案)
+
+原文 (ii) 写 `0 ≤ m < max xᵢ`,`m = 0` 对应「长度 0 的 leaf-leaf 路径」,即起讫为**同一片**叶子的平凡路径。`Defs.lean` 的 `IsLeafLeafPath` 要求两端点
+**相异**(论文 §1 "paths going between two leaves",且 Lemma 2.1 的用法要求相异),故我们把 (ii) 的下界写成 `1 ≤ m`。这不影响任何被使用的结论:
+本链路只用 (i) 与 (iv)。`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreePaths.lean:4:0: * `Narins–Po`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreePaths.lean:28:10818: * `  `:
+Double spaces are not allowed.
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreePaths.lean:50:15: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/TreePaths.lean:108:4: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreePaths.lean:212:8: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+warning: Erdos815/TreePaths.lean:200:41: Variable name `hoe` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hoe
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Erdos815/TreePaths.lean:219:42: Variable name `hoe` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hoe
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Erdos815/TreePaths.lean:276:41: Variable name `hoe` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hoe
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [3147/3149] Built Erdos815.Main (2.3s)
+warning: Erdos815/Main.lean:50:0: The module doc-string for a file should be the first command after the imports.
+Please, add a module doc-string (`/-! ... -/`) before `namespace Erdos815`.
+
+Hint: Type `m(odule docstring) + [tab]` to insert a template via snippet.
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Main.lean:2:0: * `# Theorem 1.3(ii`:
+Copyright line should start with 'Copyright (c) YYYY'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Main.lean:2:23: * `orem 1.2 —— 组装(step 5)`:
+Copyright line should end with '. All rights reserved.'
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Main.lean:4:0: * `T1.3(ii): `Tₙ` 无长 20 的 leaf-leaf 路径 = T2.5(20-avoiding)+ Lemma 2.2(iv) 的 only-if。
+T1.2:     `Gₙ = G(Tₙ)` 是 degree 3-critical 且无长 23 的圈 = P-crit + Lemma 2.1(i) + T1.3(ii)。
+
+论文 Proof of Theorem 1.2(全文):
+
+> Let `(aᵢ)` be the sequence from Theorem 2.5, and let `Tₙ = T(a₁ … aₙ)`. By Theorem 1.3(ii),> `Tₙ` contains no leaf-leaf path of length 20. Since `Tₙ` is an even 1-3-tree, we can use
+> part (i) of Lemma 2.1 to conclude that `Gₙ = G(Tₙ)` contains no cycle of length 23.
+> Since `Tₙ` is a 1-3 tree, `Gₙ` is degree 3-critical.
+
+## 本文件的四块
+
+| 块 | 内容 |
+|---|---|
+| §1 | `TVtx x n` 的有限性(`Fintype` 实例)—— Lean 里必须显式给,论文里是「显然」 |
+| §2 | 参数核对:`xA := aSeq (·+1)` 满足 `TParams` / `IsOddEvenFin` / `xMax < 10` |
+| §3 | **T1.3(ii)**:`theorem_1_3_ii` |
+| §4 | **T1.2**:`theorem_1_2` 与蓝图定死的最终陈述 `erdos_815` |
+
+## 下标平移(全文件唯一容易错的地方,写死在这里)
+
+论文的序列是 `a₁, a₂, …`(从 **1** 起),`Tₙ = T(a₁ … aₙ)`。
+`TTree x n` 取 `x` 在 `0, …, n−1` 上的值,故
+
+```
+xA i := aSeq (i + 1)      -- 我们的 x i  =  论文的 a_{i+1}
+```
+
+与 `TreeBasic.IsOddEvenFin` 的 `x i % 2 = (i+1) % 2` 正好对上(`aSeq I ≡ I (mod 2)`),也与 `Sequence.aSeq_matches_paper` 锁死的「`aSeq 1 … aSeq 24` = 论文印的那 24 个数」对上。
+
+## 为什么是 `m = 10` 而不是 `m = 11`
+
+`lemma_2_2_iv_only_if` 要 `xMax x n < m` 且路径长 `2 * m`。我们要排除的路径长是 **20**,故 `m = 10`,需要 `xMax < 10` 即 `aSeq i ≤ 9`。论文写的正是
+「`20 > 2 · maxᵢ aᵢ = 18`」—— 用的是**实际最大值 9**,不是 Definition 2.3 那条较松的
+`aᵢ ≤ k/2 = 10`。`Sequence.aSeq_le_nine` 是 step 5 为此补的有限检查。`:
+If an authors line spans multiple lines, each line but the last must end with a trailing comma
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Main.lean:4:0: * `T1.3(ii):`:
+The authors line should begin with 'Authors: '
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Main.lean:5:5: * `  `:
+Double spaces are not allowed.
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Main.lean:9:46: * ` and `:
+Please, do not use 'and'; use ',' instead.
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Main.lean:40:58: * ``:
+Second copyright line should be "Released under Apache 2.0 license as described in the file LICENSE."
+
+
+Note: This linter can be disabled with `set_option linter.style.header false`
+warning: Erdos815/Main.lean:196:2: The `show` tactic should only be used to indicate intermediate goal states for readability.
+However, this tactic invocation changed the goal. Please use `change` instead for these purposes.
+
+Note: This linter can be disabled with `set_option linter.style.show false`
+✔ [3148/3149] Built Erdos815 (1.0s)
+Build completed successfully (3149 jobs).
+real 32.57
+user 22.19
+sys 19.46
+# exit=0

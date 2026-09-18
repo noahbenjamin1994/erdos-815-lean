@@ -112,6 +112,12 @@ use it at all. The delivery was verified after a `rm -rf .lake/build` rebuild fr
 Environment: Lean `leanprover/lean4:v4.34.0`, Mathlib tag `v4.34.0`, commit
 `5ed2965256430c3649e86755f9576b54eca72435`; full pin set in [`lake-manifest.json`](lake-manifest.json).
 
+The raw output of one such clean run is committed under
+[`verification/`](verification/README.md): [`build.log`](verification/build.log),
+[`axioms.log`](verification/axioms.log) with all 51 audited theorems,
+[`scan.log`](verification/scan.log) and [`CHECKSUMS.txt`](verification/CHECKSUMS.txt), so a
+reviewer can diff against their own run rather than take the numbers above on trust.
+
 ## Credit
 
 The mathematics is due to **Lothar Narins, Alexey Pokrovskiy and Tibor Szabó** — the theorem,
